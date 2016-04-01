@@ -1,0 +1,22 @@
+#!/usr/bin/env node
+
+'use strict'
+
+const remi = require('commander')
+
+const api = require('../index')
+api.once('ready', init)
+
+function init () {
+    remi.version(require('../package.json').version)
+
+    remi.command('register')
+        .description('Register the current server as a new Remi slave.')
+        .action(() => {
+            api.register((err) => {
+                process.exit(err ? 1 : 0)
+            })
+        })
+
+    remi.parse(process.argv)
+}
