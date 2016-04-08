@@ -69,7 +69,7 @@ function set_events () {
 
     Server.generate_git_key = function (callback) {
         Server.socket.on('message', (data) => {
-            return callback(data.key)
+            return callback(null, data.data)
         })
 
         Server.socket.sendMessage({
@@ -84,11 +84,29 @@ function set_events () {
 
     Server.get_git_key = function (callback) {
         Server.socket.on('message', (data) => {
-            return callback(data.key)
+            return callback(null, data.data)
         })
 
         Server.socket.sendMessage({
             task: 'get_git_key'
         })
+    }
+
+
+
+
+
+
+    Server.deploy = function deploy (args, done) {
+        Server.socket.on('message', (data) => {
+            return callback(data.err, data.data)
+        })
+
+        const query = {
+            args: args,
+            task: 'deploy'
+        }
+
+        Server.socket.sendMessage(query)
     }
 }

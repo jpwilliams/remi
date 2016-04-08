@@ -2,6 +2,7 @@
   "name": "remi",
   "version": "0.1.0",
   "dependencies": {
+    "async": "^1.5.2",
     "colors": "^1.1.2",
     "daemon": "^1.1.0",
     "inquirer": "^0.12.0",

@@ -40,7 +40,12 @@ function init () {
         }
 
         cli.spinner(`${'[REMI]'.green} No slave daemon found; starting... `)
-        daemon.daemon(`${process.cwd()}/lib/client_daemon.js`)
+
+        daemon.daemon(`${process.cwd()}/lib/client_daemon.js`, {}, {
+            stdout: require('fs').openSync(`${process.env.HOME}/.remi/client_out.log`, 'w'),
+            stderr: require('fs').openSync(`${process.env.HOME}/.remi/client_err.log`, 'w')
+        })
+
         Client.triggered = true
 
         init()

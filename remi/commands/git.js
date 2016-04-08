@@ -31,13 +31,13 @@ module.exports = require('ronin').Command.extend({
 
                 
 
-                generate_git_key((key) => {
+                generate_git_key((err, key) => {
                     console.log(`\n${key}\n`)
                     process.exit(0)
                 })
             })
         } else {
-            get_git_key((key) => {
+            get_git_key((err, key) => {
                 console.log(`\n${key}\n`)
                 process.exit(0)
             })
@@ -56,10 +56,10 @@ function get_git_key (done) {
     server.on('ready', () => {
         cli.spinner(`${'[REMI]'.green} Retrieving GIT key... `)
 
-        server.get_git_key((key) => {
+        server.get_git_key((err, key) => {
             cli.spinner(`${'[REMI]'.green} Retrieving GIT key... ${'success'.green}.`, true)
 
-            return done(key)
+            return done(err, key)
         })
     })
 }
@@ -75,10 +75,10 @@ function generate_git_key (done) {
     server.on('ready', () => {
         cli.spinner(`${'[REMI]'.green} Regenerating GIT key... `)
 
-        server.generate_git_key((key) => {
+        server.generate_git_key((err, key) => {
             cli.spinner(`${'[REMI]'.green} Regenerating GIT key... ${'success'.green}.`, true)
 
-            return done(key)
+            return done(err, key)
         })
     })
 }
